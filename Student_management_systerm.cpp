@@ -43,7 +43,6 @@ int main()
     project();
 
     return 0;
-
 }
 
 //decleration of project function
@@ -69,6 +68,8 @@ void project()
 		cout << "0. Exit" << endl;
 
 		cout << "Enter your choice: ";
+
+        cin >> ch;
 
         system("cls");
     
@@ -240,4 +241,25 @@ void delete_data()
     remove("detail.txt");
     rename("temp.txt" , "detail.txt");
     
+}
+
+void get_trash()
+{   
+    //gettiong input stream to open the trash file
+    ifstream trash_file;
+
+    //open trash file in input mode
+    trash_file.open("trash.txt" , ios :: in | ios :: binary);
+
+    //read data in the trash file 
+    while (trash_file.read((char*)&s , sizeof(s)))
+   {    
+        //call show data function
+        s.show_data();
+   }
+
+    //close the trash file
+   trash_file.close();
+
+   cout << "\n\n*******Data Reading from Trash File Successfully Done*****\n";
 }
