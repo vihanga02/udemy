@@ -142,7 +142,7 @@ void add_data()
     ofstream output_file;
 
     //operning the file in input mode and write data in binary mode
-    output_file.open("detail.txt",ios :: in | ios :: binary);
+    output_file.open("detail.txt",ios :: out | ios :: binary);
 
     //get data from get data function
     s.get_data();
@@ -155,4 +155,38 @@ void add_data()
 
     cout << "\n\n*******Data Successfully Saved to File*******\n";
 
+}
+
+void display_data()
+{
+    //calling imput stream
+    ifstream data_file;
+
+    //opening the data dile in input mode
+    data_file.open("detail.txt" , ios :: in | ios :: binary );
+
+    //read the data from the data file
+    while (data_file.read((char*)&s , sizeof(s)))
+    {
+        //calling from data method in student class
+        s.show_data();
+    }
+
+    //close the data file
+    data_file.close();
+
+    cout <<  "\n\n******Data Reading from File Successfully Done*****\n";
+
+}
+
+void delete_data()
+{
+    ifstream data_file;
+    ofstream temp_file , trash_file;
+
+    data_file.open("detail.txt" , ios :: in | ios :: binary);
+    temp_file.open("temp.txt" , ios :: out | ios :: binary);
+    trash_file.open("trash.txt" , ios :: out | ios :: binary);
+
+    
 }
