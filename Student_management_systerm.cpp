@@ -181,12 +181,63 @@ void display_data()
 
 void delete_data()
 {
+    //definig two veriablles to store addminssion no and successs
+    int n , flag;
+
+    //calling input and output data streams 
     ifstream data_file;
     ofstream temp_file , trash_file;
 
+    //opening the detail file in input mode 
     data_file.open("detail.txt" , ios :: in | ios :: binary);
+
+    //opening a tempory file in output mode
     temp_file.open("temp.txt" , ios :: out | ios :: binary);
+
+    //opening a trash file in output mode
     trash_file.open("trash.txt" , ios :: out | ios :: binary);
 
+    //getting the user addminssion no
+    cout << "Enter Admission Number : ";
+	cin >> n;
+
+    //read data from the data file
+    while (data_file.read((char*)&s , sizeof(s)))
+    {   
+        //check whether addmission no is matching or not
+        if (n == s.get_admission_no())
+        {   
+            cout << "This record" << n << "This has been set to the trash" << endl;
+
+            //calling the show data function
+            s.show_data();
+
+            //write content of student into tesh file
+            trash_file.write((char*)&s, sizeof(s));
+            
+            //incrementing flag counter
+            flag++ ;
+        }
+        else
+        {   
+            //write data for into the tempory file
+            temp_file.write((char*)&s , sizeof(s));
+        }
+    }
+    
+    //close opened files
+    data_file.close();
+    temp_file.close();
+    trash_file.close();
+
+    //print the error messege if the addmission no is not match
+    if (flag == 0)
+    {
+        cout << " " << n << "Record not found" << endl << endl;
+    }
+
+    //remove detail file and rename temp file as detail file
+    remove("detail.txt");
+    rename("temp.txt" , "detail.txt");
     
 }
